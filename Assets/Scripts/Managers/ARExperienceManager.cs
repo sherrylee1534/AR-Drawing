@@ -9,7 +9,7 @@ public class ARExperienceManager : MonoBehaviour
     private UnityEvent OnInitialized = null;
 
     [SerializeField]
-    private UnityEvent OnRetarted = null;
+    private UnityEvent OnRestarted = null;
 
     private ARPlaneManager arPlaneManager = null;
 
@@ -46,7 +46,7 @@ public class ARExperienceManager : MonoBehaviour
     public void Restart()
     {
         ARDebugManager.Instance.LogInfo("Restart Experience");
-        OnRetarted?.Invoke();
+        OnRestarted?.Invoke();
         Initialized = false;
         arPlaneManager.enabled = true;
     }

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using DilmerGames.Core.Singletons;
+using Core.Singletons;
 using TMPro;
 using UnityEngine;
 

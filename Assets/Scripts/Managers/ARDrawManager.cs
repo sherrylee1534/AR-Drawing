@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using DilmerGames.Core.Singletons;
+using Core.Singletons;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.XR.ARFoundation;

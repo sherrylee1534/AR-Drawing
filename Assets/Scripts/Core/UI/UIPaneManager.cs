@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using DilmerGames.UI;
-using DilmerGames.Core.Singletons;
+using UI;
+using Core.Singletons;
 using UnityEngine;
 
-namespace DilmerGames.Managers
+namespace Managers
 {
     public class UIPaneManager : Singleton<UIPaneManager>
     {

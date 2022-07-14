@@ -3,7 +3,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace DilmerGames.UI
+namespace UI
 {
     [RequireComponent(typeof(CanvasGroup))]
     public class UIPane : MonoBehaviour

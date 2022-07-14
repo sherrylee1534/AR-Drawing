@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using DilmerGames.Core.Singletons;
+using Core.Singletons;
 using UnityEngine;
 
 public class ARUIManager : Singleton<ARUIManager>
