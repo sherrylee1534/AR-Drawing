@@ -12,7 +12,6 @@ public class ARExperienceManager : MonoBehaviour
     private UnityEvent OnRestarted = null;
 
     private ARPlaneManager arPlaneManager = null;
-
     private bool Initialized { get; set; }
     
     void Awake() 

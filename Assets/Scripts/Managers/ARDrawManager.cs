@@ -18,16 +18,14 @@ public class ARDrawManager : Singleton<ARDrawManager>
 
     [SerializeField] 
     private Camera arCamera = null;
-
+    
     private List<ARAnchor> anchors = new List<ARAnchor>();
-
     private Dictionary<int, ARLine> Lines = new Dictionary<int, ARLine>();
-
-    private bool CanDraw { get; set; }
+    private bool canDraw { get; set; }
 
     void Update ()
     {
-        #if !UNITY_EDITOR    
+        #if !UNITY_EDITOR
         DrawOnTouch();
         #else
         DrawOnMouse();
@@ -36,13 +34,13 @@ public class ARDrawManager : Singleton<ARDrawManager>
 
     public void AllowDraw(bool isAllow)
     {
-        CanDraw = isAllow;
+        canDraw = isAllow;
     }
 
 
     void DrawOnTouch()
     {
-        if(!CanDraw) return;
+        if(!canDraw) return;
 
         int tapCount = Input.touchCount > 1 && lineSettings.allowMultiTouch ? Input.touchCount : 1;
 
@@ -83,7 +81,7 @@ public class ARDrawManager : Singleton<ARDrawManager>
 
     void DrawOnMouse()
     {
-        if(!CanDraw) return;
+        if(!canDraw) return;
 
         Vector3 mousePosition = arCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, lineSettings.distanceFromCamera));
 

@@ -4,11 +4,8 @@ using UnityEngine.XR.ARFoundation;
 public class ARLine 
 {
     private int positionCount = 0;
-
     private Vector3 prevPointDistance = Vector3.zero;
-    
     private LineRenderer LineRenderer { get; set; }
-
     private LineSettings settings;
 
     public ARLine(LineSettings settings)
