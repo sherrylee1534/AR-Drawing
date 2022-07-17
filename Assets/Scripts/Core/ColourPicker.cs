@@ -47,7 +47,7 @@ public class ColourPicker : MonoBehaviour
             float width = rectTransform.rect.width;
             float height = rectTransform.rect.height;
 
-            // In inspector, Rect Transform has (top, center) as pivot, Pos Y of -200, and Width:Height = 1000:750
+            // In inspector, Rect Transform has (top, centre) as pivot, Pos Y of -200, and Width:Height = 1000:750
             // Hence, to make width and height proportionate, and move localPoint (0, 0) to bottom left corner,
             // we use ((width + xRectOffset) * 0.5f) and ((height + 200 + yRectOffset) * 0.75f)
             localPoint += new Vector2(((width + xRectOffset) * 0.5f), ((height + 200 + yRectOffset) * 0.75f));
