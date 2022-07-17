@@ -68,10 +68,12 @@ public class ARDrawManager : Singleton<ARDrawManager>
                 Lines.Add(touch.fingerId, line);
                 line.AddNewLineRenderer(transform, anchor, touchPosition);
             }
+
             else if(touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary)
             {
                 Lines[touch.fingerId].AddPoint(touchPosition);
             }
+
             else if(touch.phase == TouchPhase.Ended)
             {
                 Lines.Remove(touch.fingerId);
@@ -95,11 +97,13 @@ public class ARDrawManager : Singleton<ARDrawManager>
                 Lines.Add(0, line);
                 line.AddNewLineRenderer(transform, null, mousePosition);
             }
+
             else 
             {
                 Lines[0].AddPoint(mousePosition);
             }
         }
+
         else if(Input.GetMouseButtonUp(0))
         {
             Lines.Remove(0);   
@@ -119,5 +123,12 @@ public class ARDrawManager : Singleton<ARDrawManager>
             LineRenderer line = currentLine.GetComponent<LineRenderer>();
             Destroy(currentLine);
         }
+    }
+
+    public void UndoLine()
+    {
+        GameObject[] lines = GetAllLinesInScene();
+        int lastObject = lines.Length - 1;
+        Destroy(lines[lastObject]);
     }
 }
