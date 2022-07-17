@@ -49,10 +49,18 @@ public class ARLine
         goLineRenderer.startWidth = settings.startWidth;
         goLineRenderer.endWidth = settings.endWidth;
 
-        goLineRenderer.startColor = settings.startColor;
-        goLineRenderer.endColor = settings.endColor;
-
         goLineRenderer.material = settings.defaultMaterial;
+        bool isColourSelected = ColourPicker.isColourSelected;
+        Color lineColour = ColourPicker.selectedColour;
+
+        if (!isColourSelected)
+        {
+            lineColour = Color.white; // Default selectedColour is white.
+            goLineRenderer.material.SetColor("_EmissionColor", lineColour);
+        }
+
+        goLineRenderer.material.SetColor("_EmissionColor", lineColour);
+
         goLineRenderer.useWorldSpace = true;
         goLineRenderer.positionCount = positionCount;
 

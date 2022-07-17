@@ -4,8 +4,8 @@ using UnityEngine;
 public class LineSettings : ScriptableObject 
 {
     public string lineTagName = "Line";
-    public Color startColor = Color.white;
-    public Color endColor = Color.white;
+    // public Color startColour = Color.white;
+    // public Color endColour = Color.white;
     public float startWidth = 0.01f;
     public float endWidth = 0.01f;
     public float distanceFromCamera = 0.3f;
