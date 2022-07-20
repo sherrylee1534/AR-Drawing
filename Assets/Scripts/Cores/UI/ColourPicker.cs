@@ -8,6 +8,7 @@ using UnityEngine.Events;
 
 [Serializable]
 public class ColourEvent : UnityEvent<Color> { }
+
 public class ColourPicker : MonoBehaviour
 {
     public TextMeshProUGUI debugText;

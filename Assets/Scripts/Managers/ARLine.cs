@@ -15,10 +15,10 @@ public class ARLine
 
     public void AddPoint(Vector3 position)
     {
-        if(prevPointDistance == null)
+        if (prevPointDistance == null)
             prevPointDistance = position;
 
-        if(prevPointDistance != null && Mathf.Abs(Vector3.Distance(prevPointDistance, position)) >= settings.minDistanceBeforeNewPoint)
+        if (prevPointDistance != null && Mathf.Abs(Vector3.Distance(prevPointDistance, position)) >= settings.minDistanceBeforeNewPoint)
         {
             prevPointDistance = position;
             positionCount++;
@@ -29,7 +29,7 @@ public class ARLine
             LineRenderer.SetPosition(positionCount - 1, position);
 
             // applies simplification if reminder is 0
-            if(LineRenderer.positionCount % settings.applySimplifyAfterPoints == 0 && settings.allowSimplification)
+            if (LineRenderer.positionCount % settings.applySimplifyAfterPoints == 0 && settings.allowSimplification)
             {
                 LineRenderer.Simplify(settings.tolerance);
             }

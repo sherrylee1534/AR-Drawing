@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Core.Singletons;
+using Cores.Singletons;
 using TMPro;
 using UnityEngine;
 

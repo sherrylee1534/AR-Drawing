@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Core.Singletons;
+using Cores.Singletons;
 using UnityEngine;
 
 public class ARUIManager : Singleton<ARUIManager>

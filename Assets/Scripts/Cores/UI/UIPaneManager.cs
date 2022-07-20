@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using UI;
-using Core.Singletons;
+using Cores.Singletons;
 using UnityEngine;
 
 namespace Managers
