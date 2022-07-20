@@ -25,8 +25,8 @@ public class ARDrawManager : Singleton<ARDrawManager>
     private bool canDraw { get; set; }
     private Stack<GameObject> undoRedoStack = new Stack<GameObject>();
     private UndoRedo undoRedo;
-    private bool isUndoPressed = false;
-    private bool isDrawingAfterUndo = false;
+    private int undoRedoStackIndex;
+    private int totalNumberOfLinesInScene;
 
     void Start()
     {
@@ -51,11 +51,6 @@ public class ARDrawManager : Singleton<ARDrawManager>
     {
         if (!canDraw) return;
 
-        if (isUndoPressed)
-        {
-            isDrawingAfterUndo = true;
-        }
-
         int tapCount = Input.touchCount > 1 && lineSettings.allowMultiTouch ? Input.touchCount : 1;
 
         for (int i = 0; i < tapCount; i++)
@@ -65,36 +60,42 @@ public class ARDrawManager : Singleton<ARDrawManager>
             
             ARDebugManager.Instance.LogInfo($"{touch.fingerId}");
 
-            if (touch.phase == TouchPhase.Began)
+            if ((Screen.height * 0.15f) < touch.position.y && touch.position.y < (Screen.height * 0.85f))
             {
-                OnDraw?.Invoke();
-                
-                ARAnchor anchor = anchorManager.AddAnchor(new Pose(touchPosition, Quaternion.identity));
-
-                if (anchor == null)
+                if (touch.phase == TouchPhase.Began)
                 {
-                    Debug.LogError("Error creating reference point");
+                    // Block off borders at the top and bottom of the screen
+                    
+                    OnDraw?.Invoke();
+                    
+                    ARAnchor anchor = anchorManager.AddAnchor(new Pose(touchPosition, Quaternion.identity));
+
+                    if (anchor == null)
+                    {
+                        Debug.LogError("Error creating reference point");
+                    }
+
+                    else 
+                    {
+                        anchors.Add(anchor);
+                        ARDebugManager.Instance.LogInfo($"Anchor created & total of {anchors.Count} anchor(s)");
+                    }
+
+                    ARLine line = new ARLine(lineSettings);
+                    Lines.Add(touch.fingerId, line);
+                    line.AddNewLineRenderer(transform, anchor, touchPosition);
+                    undoRedoStackIndex++;
                 }
 
-                else 
+                else if (touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary)
                 {
-                    anchors.Add(anchor);
-                    ARDebugManager.Instance.LogInfo($"Anchor created & total of {anchors.Count} anchor(s)");
+                    Lines[touch.fingerId].AddPoint(touchPosition);
                 }
 
-                ARLine line = new ARLine(lineSettings);
-                Lines.Add(touch.fingerId, line);
-                line.AddNewLineRenderer(transform, anchor, touchPosition);
-            }
-
-            else if (touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary)
-            {
-                Lines[touch.fingerId].AddPoint(touchPosition);
-            }
-
-            else if (touch.phase == TouchPhase.Ended)
-            {
-                Lines.Remove(touch.fingerId);
+                else if (touch.phase == TouchPhase.Ended)
+                {
+                    Lines.Remove(touch.fingerId);
+                }
             }
         }
     }
@@ -103,36 +104,36 @@ public class ARDrawManager : Singleton<ARDrawManager>
     {
         if (!canDraw) return;
 
-        if (isUndoPressed)
-        {
-            isDrawingAfterUndo = true;
-        }
-
         Vector3 mousePosition = arCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, lineSettings.distanceFromCamera));
 
         if (Input.GetMouseButton(0))
         {
-            OnDraw?.Invoke();
-
-            if (Lines.Keys.Count == 0)
+            // Block off borders at the top and bottom of the screen
+            if ((Screen.height * 0.15f) < Input.mousePosition.y && Input.mousePosition.y < (Screen.height * 0.85f))
             {
-                ARLine line = new ARLine(lineSettings);
-                Lines.Add(0, line);
-                line.AddNewLineRenderer(transform, null, mousePosition);
-                //Debug.Log("Lines if: " + Lines.Count);
-            }
+                OnDraw?.Invoke();
 
-            else
-            {
-                Lines[0].AddPoint(mousePosition);
-                //Debug.Log("Lines else: " + Lines.Count);
+                if (Lines.Keys.Count == 0)
+                {
+                    ARLine line = new ARLine(lineSettings);
+                    Lines.Add(0, line);
+                    line.AddNewLineRenderer(transform, null, mousePosition);
+                    undoRedoStackIndex++;
+                    Debug.Log("undoRedoStackIndex: " + undoRedoStackIndex);
+                    // totalNumberOfLinesInScene++;
+                    // Debug.Log("totalNumberOfLinesInScene: " + totalNumberOfLinesInScene);
+                }
+
+                else
+                {
+                    Lines[0].AddPoint(mousePosition);
+                }
             }
         }
 
         else if (Input.GetMouseButtonUp(0))
         {
             Lines.Remove(0);
-            //Debug.Log("Lines else if: " + Lines.Count);
         }
 
         if (Input.GetKeyDown("k"))
@@ -151,31 +152,26 @@ public class ARDrawManager : Singleton<ARDrawManager>
     {
         AllowDraw(false); // Stop drawing
 
-        isUndoPressed = true;
-
         GameObject[] lines = GetAllLinesInScene();
-
-        if (isDrawingAfterUndo)
-        {
-            undoRedoStack.Clear();
-            isUndoPressed = false;
-        }
         
-        if (isDrawingAfterUndo)
+        if (lines.Length > 0)
         {
-            if (lines.Length > 0)
-            {
-                int lastIndex = lines.Length - 1;
-                GameObject lastObject = lines[lastIndex];
-                undoRedoStack.Push(lastObject);
-                Debug.Log("undoRedoStack: " + undoRedoStack.Count);
-                undoRedo.UndoPress(lastObject);
-            }
 
-            else
-            {
-                Debug.Log("No lines to undo");
-            }
+            // int lastIndex = lines.Length - 1;
+            // GameObject lastObject = lines[lastIndex];
+            // undoRedoStack.Push(lastObject);
+            // Debug.Log("undoRedoStack: " + undoRedoStack.Count);
+            // undoRedo.UndoPress(lastObject);
+
+            undoRedoStack.Push(lines[undoRedoStackIndex - 1]);
+            Debug.Log("undoRedoStack: " + undoRedoStack.Count);
+            undoRedo.UndoPress(lines[undoRedoStackIndex - 1]);
+            undoRedoStackIndex--;
+        }
+
+        else
+        {
+            Debug.Log("No lines to undo");
         }
         
         StartCoroutine(AllowDrawAgain()); // Allow drawing again
@@ -185,11 +181,15 @@ public class ARDrawManager : Singleton<ARDrawManager>
     {
         AllowDraw(false); // Stop drawing
 
+        GameObject[] lines = GetAllLinesInScene();
+
         if (undoRedoStack.Count > 0)
         {
+            Debug.Log("undoRedoStack before pop: " + undoRedoStack.Count);
             GameObject gameObjectToRedo = undoRedoStack.Pop();
             Debug.Log("undoRedoStack after pop: " + undoRedoStack.Count);
             undoRedo.RedoPress(gameObjectToRedo);
+            undoRedoStackIndex++;
         }
 
         else
@@ -209,38 +209,6 @@ public class ARDrawManager : Singleton<ARDrawManager>
             Destroy(currentLine);
         }
     }
-
-    // public void UndoLine()
-    // {
-    //     AllowDraw(false); // Stop drawing when you press undo
-
-    //     // Remove last object
-    //     GameObject[] lines = GetAllLinesInScene();
-
-    //     if (lines.Length >= 1)
-    //     {
-    //         int lastObject = lines.Length - 1;
-    //         Destroy(lines[lastObject]);
-    //     }
-
-    //     else
-    //     {
-    //         Debug.Log("No more lines to undo");
-    //     }
-
-    //     Debug.Log("no. of lines drawn: " + lines.Length);
-    //     Debug.Log("no. of lines left: " + lines.Length);
-
-    //     #if (!UNITY_EDITOR)
-    //     {
-    //         // Remove last anchor (only applicable for DrawOnTouch())
-    //         int lastAnchor = anchors.Count - 1;
-    //         anchors.RemoveAt(lastAnchor);
-    //     }
-    //     #endif
-
-    //     StartCoroutine(AllowDrawAgain());
-    // }
 
     IEnumerator AllowDrawAgain()
     {
