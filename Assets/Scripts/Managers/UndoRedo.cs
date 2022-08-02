@@ -7,22 +7,16 @@ public class UndoRedo : MonoBehaviour
     public class Settings
     {
         public GameObject gameObject;
-        // public Vector3 position;
-        // public Quaternion rotation;
         public bool isActive;
 
         public void DeactivateOrReactivate()
         {
-            // gameObject.transform.position = position;
-            // gameObject.transform.rotation = rotation;
             gameObject.SetActive(isActive);
         }
 
         public Settings(GameObject go)
         {
             gameObject = go;
-            // position = go.transform.position;
-            // rotation = go.transform.rotation;
             isActive = go.activeSelf;
         }
     }

@@ -17,7 +17,7 @@ public class ARDrawManager : Singleton<ARDrawManager>
     [SerializeField]
     private ARAnchorManager anchorManager = null;
 
-    [SerializeField] 
+    [SerializeField]
     private Camera arCamera = null;
     
     private List<ARAnchor> anchors = new List<ARAnchor>();

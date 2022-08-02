@@ -31,7 +31,7 @@ public class ColourPicker : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        SelectOnTouchOrMouse();
+        SelectOnTouchOrMouse(); // Since touch may be handled with Input.GetMouseButtonDown()
     }
 
     void SelectOnTouchOrMouse()
