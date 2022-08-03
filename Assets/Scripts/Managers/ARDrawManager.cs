@@ -119,7 +119,7 @@ public class ARDrawManager : Singleton<ARDrawManager>
                     Lines.Add(0, line);
                     line.AddNewLineRenderer(transform, null, mousePosition);
                     undoRedoStackIndex++;
-                    Debug.Log("undoRedoStackIndex: " + undoRedoStackIndex);
+                    // Debug.Log("undoRedoStackIndex: " + undoRedoStackIndex);
                     // totalNumberOfLinesInScene++;
                     // Debug.Log("totalNumberOfLinesInScene: " + totalNumberOfLinesInScene);
                 }
@@ -136,11 +136,12 @@ public class ARDrawManager : Singleton<ARDrawManager>
             Lines.Remove(0);
         }
 
-        if (Input.GetKeyDown("k"))
-        {
-            GameObject[] lines = GetAllLinesInScene();
-            Debug.Log("total no. of lines: " + lines.Length);
-        }
+        // For debugging
+        // if (Input.GetKeyDown("k"))
+        // {
+        //     GameObject[] lines = GetAllLinesInScene();
+        //     Debug.Log("total no. of lines: " + lines.Length);
+        // }
     }
 
     public GameObject[] GetAllLinesInScene()
@@ -164,7 +165,7 @@ public class ARDrawManager : Singleton<ARDrawManager>
             // undoRedo.UndoPress(lastObject);
 
             undoRedoStack.Push(lines[undoRedoStackIndex - 1]);
-            Debug.Log("undoRedoStack: " + undoRedoStack.Count);
+            // Debug.Log("undoRedoStack: " + undoRedoStack.Count);
             undoRedo.UndoPress(lines[undoRedoStackIndex - 1]);
             undoRedoStackIndex--;
         }
@@ -185,9 +186,9 @@ public class ARDrawManager : Singleton<ARDrawManager>
 
         if (undoRedoStack.Count > 0)
         {
-            Debug.Log("undoRedoStack before pop: " + undoRedoStack.Count);
+            // Debug.Log("undoRedoStack before pop: " + undoRedoStack.Count);
             GameObject gameObjectToRedo = undoRedoStack.Pop();
-            Debug.Log("undoRedoStack after pop: " + undoRedoStack.Count);
+            // Debug.Log("undoRedoStack after pop: " + undoRedoStack.Count);
             undoRedo.RedoPress(gameObjectToRedo);
             undoRedoStackIndex++;
         }
