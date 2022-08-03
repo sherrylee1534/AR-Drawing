@@ -41,7 +41,7 @@ public class ARDebugManager : Singleton<ARDebugManager>
 
     private void ClearLines()
     {
-        if(debugAreaText.text.Split('\n').Count() >= maxLines)
+        if (debugAreaText.text.Split('\n').Count() >= maxLines)
         {
             debugAreaText.text = string.Empty;
         }
