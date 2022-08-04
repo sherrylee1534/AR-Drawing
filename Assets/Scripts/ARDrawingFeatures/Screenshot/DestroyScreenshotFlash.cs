@@ -6,6 +6,6 @@ public class DestroyScreenshotFlash : MonoBehaviour
 {
 	void Start ()
     {
-		Destroy(gameObject, 0.15f);
+		Destroy(gameObject, 0.1f);
 	}
 }
