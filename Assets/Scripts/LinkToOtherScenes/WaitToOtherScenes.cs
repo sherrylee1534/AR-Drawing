@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class WaitToOtherScenes : MonoBehaviour
 {
     public string sceneName;
+    public float delay;
 
     void Update()
     {
@@ -17,7 +18,7 @@ public class WaitToOtherScenes : MonoBehaviour
 
     IEnumerator WaitToChangeScene()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(delay);
         SceneManager.LoadScene(sceneName);
     }
 }

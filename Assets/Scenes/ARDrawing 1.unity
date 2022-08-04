@@ -732,6 +732,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: ARDrawing
+  delay: 5
 --- !u!1 &1101873639
 GameObject:
   m_ObjectHideFlags: 0
