@@ -44,7 +44,7 @@ public class ScreenshotPreview : MonoBehaviour
 
     void ShowPicture()
     {
-        string pathToFile = files[files.Length-1]; // Always show last screenshot
+        string pathToFile = files[files.Length - 1]; // Always show last screenshot
         Texture2D texture = GetScreenshotImage(pathToFile);
         Sprite spr = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
         panel.GetComponent<Image>().sprite = spr;
