@@ -9,8 +9,12 @@ public enum CanvasType{
     SelectLanguage,
     HomePage,
     ProfilePage,
-    TravellingExhibition, 
+    TravellingExhibition,
     TravellingExhibitionExpand,
+    ScanPage,
+    HomePage2,
+    Stamps,
+    ClickIcecream,
 
 }
 
