@@ -6,6 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Landing.unity
+    guid: 67cb571ca37bd4e9d8299e1972b67253
+  - enabled: 1
+    path: Assets/Scenes/SelectLanguage.unity
+    guid: 7d293b46600e2344e820ee5dfb70233e
+  - enabled: 1
+    path: Assets/Scenes/AppUI.unity
+    guid: b350c332e593347d5a17f8495e1885ef
+  - enabled: 1
     path: Assets/Scenes/ARDrawingTutorial.unity
     guid: d7132fba47e270e4386c947649f2c5fd
   - enabled: 1
@@ -15,17 +24,11 @@ EditorBuildSettings:
     path: Assets/Scenes/Screenshots.unity
     guid: 216e3528e7e12de4abce4aaacdc3b662
   - enabled: 1
-    path: Assets/Scenes/AppUI.unity
-    guid: b350c332e593347d5a17f8495e1885ef
-  - enabled: 1
-    path: Assets/Scenes/Landing.unity
-    guid: 67cb571ca37bd4e9d8299e1972b67253
+    path: Assets/Scenes/MyArtworks.unity
+    guid: 247786eff8a6f3c46a80e90840334a26
   - enabled: 1
     path: Assets/Scenes/Profile.unity
     guid: c25fcf2e3fdc64168bcd19e400ac3a9f
-  - enabled: 1
-    path: Assets/Scenes/SelectLanguage.unity
-    guid: 7d293b46600e2344e820ee5dfb70233e
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 3b6e1e3b51b0f4f9782af98302d4a97f,
       type: 2}
