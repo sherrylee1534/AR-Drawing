@@ -7,6 +7,5 @@ public class DestroyScreenshotFlash : MonoBehaviour
 	void Start ()
     {
 		Destroy(gameObject, 0.15f);
-		Debug.Log("destroy");
 	}
 }
