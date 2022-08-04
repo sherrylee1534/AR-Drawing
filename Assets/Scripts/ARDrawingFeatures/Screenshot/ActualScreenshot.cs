@@ -14,8 +14,6 @@ public class ActualScreenshot : MonoBehaviour
     [SerializeField]
     private GameObject screenshotPopUp;
 
-    private float delay = 0.5f;
-
     void Update()
     {
         if (takeScreenshotPress.isScreenshotButtonPressed && !hasTakenScreenshot)
@@ -50,7 +48,6 @@ public class ActualScreenshot : MonoBehaviour
         yield return new WaitForEndOfFrame();
 
         screenshotPopUp.SetActive(true);
-
         hasTakenScreenshot = true;
     }
 }

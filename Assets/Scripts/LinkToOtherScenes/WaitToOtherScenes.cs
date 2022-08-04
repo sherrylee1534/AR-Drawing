@@ -7,10 +7,11 @@ public class WaitToOtherScenes : MonoBehaviour
 {
     public string sceneName;
     public float delay;
+    public bool isTimerStarted = false;
 
     void Update()
     {
-        if (gameObject.activeInHierarchy == true)
+        if (isTimerStarted == true)
         {
             StartCoroutine("WaitToChangeScene");
         }
@@ -20,5 +21,10 @@ public class WaitToOtherScenes : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         SceneManager.LoadScene(sceneName);
+    }
+    
+    public void SetIsTimerStarted(bool boolean)
+    {
+        isTimerStarted = boolean;
     }
 }

@@ -654,7 +654,6 @@ GameObject:
   - component: {fileID: 690565024}
   - component: {fileID: 690565026}
   - component: {fileID: 690565025}
-  - component: {fileID: 690565027}
   m_Layer: 5
   m_Name: ScanningWindow
   m_TagString: Untagged
@@ -719,20 +718,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 690565023}
   m_CullTransparentMesh: 0
---- !u!114 &690565027
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 690565023}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6718a09bb7f75a428eeff43d53e819c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneName: ARDrawing
-  delay: 5
 --- !u!1 &1101873639
 GameObject:
   m_ObjectHideFlags: 0
@@ -1655,6 +1640,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 2095580204}
+        m_MethodName: SetIsTimerStarted
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &1809588627
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1830,6 +1826,52 @@ Transform:
   m_GameObject: {fileID: 1911534742}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2095580203
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2095580205}
+  - component: {fileID: 2095580204}
+  m_Layer: 0
+  m_Name: WaitToOtherScenes
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2095580204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2095580203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6718a09bb7f75a428eeff43d53e819c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneName: ARDrawing
+  delay: 5
+  isTimerStarted: 0
+--- !u!4 &2095580205
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2095580203}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 378.9067, y: 1453.9391, z: -321.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
