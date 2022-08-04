@@ -14,6 +14,9 @@ public class ActualScreenshot : MonoBehaviour
     [SerializeField]
     private GameObject screenshotPopUp;
 
+    [SerializeField]
+    private GameObject homeBarRect;
+
     void Update()
     {
         if (takeScreenshotPress.isScreenshotButtonPressed && !hasTakenScreenshot)
@@ -27,6 +30,7 @@ public class ActualScreenshot : MonoBehaviour
         yield return null;
 
         screenshotPopUp.SetActive(false);
+        homeBarRect.SetActive(false);
 
         string timeStamp = System.DateTime.Now.ToString("dd-MM-yyyy-HH-mm-ss");
         string fileName = "Screenshot" + timeStamp + ".png";
@@ -48,6 +52,7 @@ public class ActualScreenshot : MonoBehaviour
         yield return new WaitForEndOfFrame();
 
         screenshotPopUp.SetActive(true);
+        homeBarRect.SetActive(true);
         hasTakenScreenshot = true;
     }
 }
