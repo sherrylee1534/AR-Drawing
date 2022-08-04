@@ -9,9 +9,20 @@ public class ScreenshotPreview : MonoBehaviour
     [SerializeField]
     GameObject panel;
     string[] files = null;
-    int whichScreenshotIsShown = 0;
+
+    [SerializeField]
+    private string localComputerPath;
 
     void Start()
+    {
+        #if (!UNITY_EDITOR)
+        ShowOnMobile();
+        #else
+        ShowOnComputer();
+        #endif
+    }
+
+    void ShowOnMobile()
     {
         files = Directory.GetFiles(Application.persistentDataPath + "/", "*.png");
 
@@ -21,9 +32,19 @@ public class ScreenshotPreview : MonoBehaviour
         }
     }
 
+    void ShowOnComputer()
+    {
+        files = Directory.GetFiles(localComputerPath, "*.png");
+
+        if (files.Length > 0)
+        {
+            ShowPicture();
+        }
+    }
+
     void ShowPicture()
     {
-        string pathToFile = files[whichScreenshotIsShown];
+        string pathToFile = files[files.Length-1]; // Always show last screenshot
         Texture2D texture = GetScreenshotImage(pathToFile);
         Sprite spr = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
         panel.GetComponent<Image>().sprite = spr;
