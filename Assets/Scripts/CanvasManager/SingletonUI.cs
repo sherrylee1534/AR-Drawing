@@ -8,11 +8,12 @@ public abstract class SingletonUI<T> : MonoBehaviour where T : Component
 
     public static T GetInstance()
     {
-        if (m_applicationIsQuitting) { return null; }
+        if (m_applicationIsQuitting) return null;
 
         if (instance == null)
         {
             instance = FindObjectOfType<T>();
+
             if (instance == null)
             {
                 GameObject obj = new GameObject();
@@ -20,15 +21,16 @@ public abstract class SingletonUI<T> : MonoBehaviour where T : Component
                 instance = obj.AddComponent<T>();
             }
         }
+
         return instance;
     }
 
-    //IMPORTANT!!! To use Awake in a derived class you need to do it this way
-     //protected override void Awake()
-     //{
-         // base.Awake();
-          //Your code goes here
-     //}
+    // IMPORTANT!!! To use Awake in a derived class you need to do it this way
+    //  protected override void Awake()
+    //  {
+    //      base.Awake();
+    //      Your code goes here
+    //  }
     
 
     protected virtual void Awake()
@@ -38,11 +40,16 @@ public abstract class SingletonUI<T> : MonoBehaviour where T : Component
             instance = this as T;
             DontDestroyOnLoad(gameObject);
         }
+
         else if (instance != this as T)
         {
             Destroy(gameObject);
         }
-        else { DontDestroyOnLoad(gameObject); }
+
+        else
+        {
+            DontDestroyOnLoad(gameObject);
+        }
     }
 
     private void OnApplicationQuit()

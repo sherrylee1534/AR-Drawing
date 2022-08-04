@@ -19,7 +19,6 @@ public class CanvasSwitcher : MonoBehaviour
     void OnButtonClicked()
     {
         canvasManager.SwitchCanvas(desiredCanvasType);
-        
     }
 }
 
