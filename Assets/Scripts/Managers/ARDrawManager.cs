@@ -25,7 +25,6 @@ public class ARDrawManager : Singleton<ARDrawManager>
     private bool canDraw { get; set; }
     private Stack<GameObject> undoRedoStack = new Stack<GameObject>();
     private UndoRedo undoRedo;
-    private int undoRedoStackIndex;
     private int totalNumberOfLinesInScene;
 
     void Start()
@@ -84,7 +83,6 @@ public class ARDrawManager : Singleton<ARDrawManager>
                     ARLine line = new ARLine(lineSettings);
                     Lines.Add(touch.fingerId, line);
                     line.AddNewLineRenderer(transform, anchor, touchPosition);
-                    undoRedoStackIndex++;
                 }
 
                 else if (touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary)
@@ -118,10 +116,6 @@ public class ARDrawManager : Singleton<ARDrawManager>
                     ARLine line = new ARLine(lineSettings);
                     Lines.Add(0, line);
                     line.AddNewLineRenderer(transform, null, mousePosition);
-                    undoRedoStackIndex++;
-                    // Debug.Log("undoRedoStackIndex: " + undoRedoStackIndex);
-                    // totalNumberOfLinesInScene++;
-                    // Debug.Log("totalNumberOfLinesInScene: " + totalNumberOfLinesInScene);
                 }
 
                 else
@@ -135,13 +129,6 @@ public class ARDrawManager : Singleton<ARDrawManager>
         {
             Lines.Remove(0);
         }
-
-        // For debugging
-        // if (Input.GetKeyDown("k"))
-        // {
-        //     GameObject[] lines = GetAllLinesInScene();
-        //     Debug.Log("total no. of lines: " + lines.Length);
-        // }
     }
 
     public GameObject[] GetAllLinesInScene()
@@ -158,16 +145,10 @@ public class ARDrawManager : Singleton<ARDrawManager>
         if (lines.Length > 0)
         {
 
-            // int lastIndex = lines.Length - 1;
-            // GameObject lastObject = lines[lastIndex];
-            // undoRedoStack.Push(lastObject);
-            // Debug.Log("undoRedoStack: " + undoRedoStack.Count);
-            // undoRedo.UndoPress(lastObject);
-
-            undoRedoStack.Push(lines[undoRedoStackIndex - 1]);
-            // Debug.Log("undoRedoStack: " + undoRedoStack.Count);
-            undoRedo.UndoPress(lines[undoRedoStackIndex - 1]);
-            undoRedoStackIndex--;
+            int lastIndex = lines.Length - 1;
+            GameObject lastObject = lines[lastIndex];
+            undoRedoStack.Push(lastObject);
+            undoRedo.UndoPress(lastObject);
         }
 
         else
@@ -186,11 +167,8 @@ public class ARDrawManager : Singleton<ARDrawManager>
 
         if (undoRedoStack.Count > 0)
         {
-            // Debug.Log("undoRedoStack before pop: " + undoRedoStack.Count);
             GameObject gameObjectToRedo = undoRedoStack.Pop();
-            // Debug.Log("undoRedoStack after pop: " + undoRedoStack.Count);
             undoRedo.RedoPress(gameObjectToRedo);
-            undoRedoStackIndex++;
         }
 
         else
